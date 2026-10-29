@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;       
+            color: #171717;
+            padding: 30px 20px;
+            
+       <!-- 30px = top and bottom 
+            20px = left and right -->
+        }
+
+        .studyflow {
+            max-width: 800px;
+            margin: 0 auto;
+         
+ <!-- Centers the StudyFlow content horizontally. -->
+           
+        }
+
+        header {
+            margin-bottom: 50px;           
+        }
+
+
+        header h1 {
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .welcome {
+            margin-bottom: 50px;
+        }
+
+
+        .welcome h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+
+        
+    .profile {  
+        display: flex;  
+        align-items: center;        
+        gap: 10px;       
+        margin-top: 15px;       
+    }  
+
+
+    .profile-avatar {  
+        width: 38px;          
+        height: 38px;  
+        border-radius: 50%;          
+        background: #171717;       
+        color: white;      
+        display: flex;  
+        align-items: center;                  
+        justify-content: center;                    
+        font-weight: bold;  
+        
+    }
+        .profile-name {
+            font-size: 14px;                                           
+            font-weight: bold;       
+        }
+
+        .profile-label {
+            font-size: 12px;
+            color: #888;           
+            margin-top: 3px;
+        }
+       
+        .semester,
+        .today-study,
+        .study-progress {
+            margin-bottom: 45px;
+        }
+
+
+        .semester h3,
+        .today-study h3,
+        .study-progress h3 {
+            font-size: 20px;
+        }
+
+
+        hr {
+            border: none;
+            border-top: 1px solid #dddddd;
+            margin: 15px 0 25px;
+        }
+
+
+        .subjects {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 15px;
+            box-sizing:border-box;
+            width: 100%;
+        }
+
+        .subjects span {
+            flex: 1;
+            min-width: 0; 
+            overflow-wrap: anywhere;
+         }
+         
+       .subjects h3 {
+            font-size: 16px;
+        }
+
+       .subjects button {  
+          width: auto;
+          flex-shrink: 0;
+        }   
+        
+         button {
+            border: none;
+            background: #171717;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+
+        button:hover {
+            background: #333333;
+        }
+
+
+       .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;        
+         }
+
+       .add-task-btn {
+                width:100%;
+            }
+            
+        .tasks {
+            margin-top: 25px;
+        }
+ 
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            box-sizing: border-box;
+         }
+
+        .task span {
+            flex: 1;
+            overflow-wrap: anywhere;
+         }
+
+        .task button {
+            margin-left: auto;
+            flex-shrink: 0;
+         }
+
+      .task-check {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            accent-color: #171717;
+}
+
+        .empty-task {
+            color: #888;
+            font-size: 14px;
+            padding: 20px 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-number {
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e7e7e7;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+
+        .progress {            
+            width: 0%;
+            height: 100%;
+            background: #171717;
+            transition: width 2.0s ease;
+}
+        }
+        
+        
+        <!-- RESPONSIVE DESIGN -->
+       @media (max-width: 600px) {
+            
+<!-- These styles apply when the screen is 600px wide or smaller. This mainly helps on phones -->
+       
+        body {
+                padding: 25px 18px;
+            }
+            
+       .welcome h2 {
+                font-size: 28px;
+            }
+
+
+            .subjects {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 15px;      
+            }
+            
+}
+.task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.task span {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.task button {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+ .task-check {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            accent-color: #171717;
+}
+
+           .subjects button {  
+          width: auto;
+          flex-shrink: 0;
+        }   
+
+            .task-header {
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .add-subject-btn{
+                width:100%;
+            }
+            
+            .add-task-btn {
+                width:100%;
+            }
+            
+             .progress {            
+            width: 0%;
+            height: 100%;
+            background: #171717;
+            transition: width 2.0s ease;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <main class="studyflow">
+        
+        <header>
+            <h1>STUDYFLOW</h1>
+        </header>
+        
+        <section class="welcome">
+
+            <h2>
+                Welcome, student.
+            </h2>
+            
+            <div class="profile">
+                
+               <div class="profile-avatar">
+                    L
+                </div>
+                
+            <div>
+      <p class="profile-name">Lauz</p>      
+         <p class="profile-label">Student</p>
+                </div>
+                
+            </div>         
+        </section>
+ 
+ <!--------------------------------------------->
+ 
+        <section class="semester">
+
+            <h3>
+                Your semester
+            </h3>
+            
+            <hr>
+     <!--Creates a horizontal divider -->
+
+            <div class="subjects">
+                
+                <h3>
+                    Semester Goals
+                </h3>
+
+                <button class="add-subject-btn">
+                    Add Semester Goal
+                </button>
+                
+           </div>
+
+        </section>
+        
+        <hr>
+ <!--------------------------------------------->
+       
+        <section class="today-study">
+
+            <div class="task-header">
+
+                <h3>
+                    Today's Study
+                </h3>
+                
+                <button class="add-task-btn">
+                    Add Task
+                </button>
+                
+           </div>
+
+            <hr>
+            
+             <div class="tasks">
+                 
+                <p class="empty-task">
+                    No tasks yet.
+                </p>
+                
+     </div>
+        </section>
+
+<!--------------------------------------------->
+
+        <section class="study-progress">
+
+            <div class="progress-header">
+
+                <h3>
+                   Study Progress
+                </h3>
+                
+  <p class="progress-number"> 0% </p>
+  
+           </div>
+
+            <hr>
+            
+            <div class="progress-bar">
+                
+                <div class="progress">
+                    
+            </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+    
+    <!-- Subject function -->
+    const addSubjectButton = document.querySelector(".add-subject-btn");
+   const semester = document.querySelector(".semester");
+   
+   <!-- single container for all subjects -->
+    
+const subjectList = document.createElement("div");
+
+subjectList.className = "subject-list";
+
+semester.appendChild(subjectList);
+   <!--------------------------------------------->
+    addSubjectButton.addEventListener("click",function(){
+    const subjectContainer = document.createElement("div");
+  
+    subjectContainer.className = "subject-container";
+    
+        const subjectInput = document.createElement("input");
+        
+        subjectInput.placeholder = "Enter Semester Goal";
+        
+          <!-- Save function -->
+        const saveButton = document.createElement("button");
+ 
+        saveButton.textContent = "Add";
+              
+        saveButton.addEventListener("click", function(){
+            const subjectName = subjectInput.value;
+            
+            if (subjectName.trim() === "") {
+        return;
+    }
+   
+  <!-- Create a new element for the subject -->
+    const subject = document.createElement("div");
+    
+    
+    const subjectText = document.createElement("span");
+
+subjectText.textContent = subjectName;
+
+<!-- subjectText css -->
+subjectText.style.flex = "1";
+subjectText.style.minWidth = "0";
+subjectText.style.overflowWrap = "anywhere";
+
+ <!-- Subject css  -->
+subject.style.padding = "12px";
+subject.style.marginTop = "10px";
+subject.style.border = "1px solid black" ;
+subject.style.borderRadius = "5px";
+subject.style.display = "flex";
+subject.style.alignItems = "center";
+subject.style.justifyContent = "space-between";
+subject.style.gap = "10px";
+
+
+ <!-- adding delete button to p -->
+subject.appendChild(subjectText);  
+subject.appendChild(deleteButton);
+ 
+ <!-- P delete  button css -->
+deleteButton.style.background = "crimson";
+deleteButton.style.color = "white";
+deleteButton.style.border = "1px solid transparent";  
+deleteButton.style.flexShrink = "0";
+
+    deleteButton.addEventListener("click", function(){
+           subject.remove();
+       });
+       
+    subjectList.appendChild(subject);
+    subjectContainer.remove();
+        });
+        
+        const deleteButton = document.createElement("button");
+
+       deleteButton.textContent = "Delete";
+       
+       <!-- Delete function -->
+       deleteButton.addEventListener("click", function(){
+           subjectContainer.remove();
+       });
+       
+       <!-- Delete button Css -->
+deleteButton.style.marginLeft = "10px";
+deleteButton.style.background = "#ffffff";
+deleteButton.style.color = "#171717";
+deleteButton.style.border = "1px solid #cccccc";
+
+        <!-- Subject Container Css -->
+subjectContainer.style.marginTop = "20px";
+subjectContainer.style.padding = "20px";
+subjectContainer.style.border = "1px solid #dddddd";
+subjectContainer.style.borderRadius = "8px";
+
+    <!-- Subject input css -->
+subjectInput.style.width = "100%";
+subjectInput.style.padding = "12px";
+subjectInput.style.marginBottom = "10px";
+subjectInput.style.border = "1px solid #cccccc";
+subjectInput.style.borderRadius = "5px";
+subjectInput.style.boxSizing = "border-box";
+    
+    
+   <!-- Put the input inside the container -->
+    subjectContainer.appendChild(subjectInput);
+    
+    
+   <!-- Put the Save button inside the container -->
+    subjectContainer.appendChild(saveButton);
+
+<!-- Put the Delete button inside the container -->
+    subjectContainer.appendChild(deleteButton);
+    
+   <!-- Put the whole container inside the Subjects section -->
+  semester.appendChild(subjectContainer);
+    });
+    
+    <!--------------------------------------------->
+    
+          <!-- Task area -->  
+    const task = document.querySelector(".today-study");  
+      
+    const addTaskButton = document.querySelector(".add-task-btn");  
+  
+    const taskList = document.querySelector(".tasks");  
+  
+    const taskListContainer = document.createElement("div"); 
+     
+    function updateProgress() {
+
+    const allTasks = taskListContainer.querySelectorAll(".task");
+
+    const completedTasks = taskListContainer.querySelectorAll(".task-check:checked");
+
+    const totalTasks = allTasks.length;
+
+    const completedCount = completedTasks.length;
+
+    let percentage = 0;
+
+    if (totalTasks > 0) {
+        percentage = Math.round((completedCount / totalTasks) * 100);
+    }
+
+    document.querySelector(".progress-number").textContent = percentage + "%";
+
+    document.querySelector(".progress").style.width = percentage + "%";
+}
+     
+    const emptyTask = document.querySelector(".empty-task");  
+  
+  <!-- Single container for all tasks -->
+    taskListContainer.className = "task-list-container";  
+  
+    taskList.appendChild(taskListContainer);  
+  
+  <!--------------------------------------------->
+  
+  
+    addTaskButton.addEventListener("click", function() {  
+  
+        <!-- task container -->  
+        const taskContainer = document.createElement("div");  
+  
+        taskContainer.className = "task-container";  
+  
+  
+        <!-- task input -->  
+        const taskInput = document.createElement("input");  
+  
+        taskInput.placeholder = "Enter task name";  
+  
+  
+        <!-- Save button -->  
+        const saveTaskButton = document.createElement("button");  
+  
+        saveTaskButton.textContent = "Add Task";  
+  
+  
+        <!-- Delete button -->  
+        const deleteTaskButton = document.createElement("button");  
+  
+        deleteTaskButton.textContent = "Delete";  
+  
+  
+        <!-- Delete button CSS -->  
+deleteTaskButton.style.marginLeft = "10px";  
+deleteTaskButton.style.background = "#ffffff";  
+deleteTaskButton.style.color = "#171717";  
+deleteTaskButton.style.border = "1px solid #cccccc";  
+  
+  
+        <!-- Task container CSS -->  
+taskContainer.style.marginTop = "20px";  
+taskContainer.style.padding = "20px";  
+taskContainer.style.border = "1px solid #dddddd";  
+taskContainer.style.borderRadius = "8px";  
+  
+  
+        <!-- Task input CSS -->  
+taskInput.style.width = "100%";  
+taskInput.style.padding = "12px";  
+taskInput.style.marginBottom = "10px";  
+taskInput.style.border = "1px solid #cccccc";  
+taskInput.style.borderRadius = "5px";  
+taskInput.style.boxSizing = "border-box";  
+  
+  
+        <!-- Save task -->  
+        saveTaskButton.addEventListener("click", function() {  
+  
+            const taskName = taskInput.value;  
+  
+  
+            <!-- Don't allow an empty task -->  
+            if (taskName.trim() === "") {  
+                return;  
+            }  
+  
+  
+            <!-- Remove No tasks yet -->  
+            if (emptyTask) {  
+                emptyTask.remove();  
+            }  
+  
+            <!-- Create the task -->  
+            const newTask = document.createElement("div");  
+  
+            newTask.className = "task";  
+  
+  
+            <!-- Create the checkbox -->  
+            const taskCheck = document.createElement("input");  
+  
+            taskCheck.type = "checkbox";  
+  
+            taskCheck.className = "task-check";  
+  
+            taskCheck.addEventListener("change", function() {
+
+            updateProgress();
+    
+           });
+           
+            <!-- Create the task text -->  
+            const taskText = document.createElement("span");  
+  
+            taskText.textContent = taskName;  
+  
+  
+            <!-- Create delete button for saved task -->  
+            const deleteSavedTaskButton = document.createElement("button");  
+  
+            deleteSavedTaskButton.textContent = "Delete";  
+  
+
+
+     <!-- Saved task delete button CSS -->    
+deleteSavedTaskButton.style.background = "crimson";  
+deleteSavedTaskButton.style.color = "white"; 
+deleteSavedTaskButton.style.marginBottom = "10px";
+  
+
+            <!-- Put checkbox first -->  
+            newTask.appendChild(taskCheck);  
+  
+  
+            <!-- Put task text second -->  
+            newTask.appendChild(taskText);  
+  
+  
+            <!-- Put delete button third -->  
+            newTask.appendChild(deleteSavedTaskButton);  
+  
+  
+            <!-- Delete saved task -->  
+            deleteSavedTaskButton.addEventListener("click", function() {  
+  
+                newTask.remove();  
+                
+                updateProgress();
+            });  
+  
+  
+            <!-- Add the task to the single task container -->  
+            taskListContainer.appendChild(newTask);  
+  
+  
+            <!-- Remove the input container -->  
+            taskContainer.remove();  
+  
+        });  
+  
+  
+        <!-- Delete input container -->  
+        deleteTaskButton.addEventListener("click", function() {  
+  
+            taskContainer.remove();  
+  
+        });  
+  
+  
+        <!-- Put input inside task container -->  
+        taskContainer.appendChild(taskInput);  
+  
+  
+        <!-- Put Add Task button inside task container -->  
+        taskContainer.appendChild(saveTaskButton);  
+  
+  
+        <!-- Put Delete button inside task container -->  
+        taskContainer.appendChild(deleteTaskButton);  
+  
+  
+        <!-- Put task container inside task list -->  
+        taskList.appendChild(taskContainer); 
+  
+    });  
+</script>
+</body>
+
+</html>

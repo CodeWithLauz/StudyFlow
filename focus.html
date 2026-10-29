@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: white;
+    color: #222222;
+    padding: 35px 20px;
+    min-height: 100vh;
+}
+
+button,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    transition: background 0.2s ease, 
+                transform 0.2s ease;
+}
+
+button:focus-visible,
+select:focus-visible {
+    outline: 2px solid #555555;
+    outline-offset: 3px;
+}
+
+/* Main screen */
+
+.focus-screen {
+    display: block;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/* Header */
+
+.focus-screen header {
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e3e3df;
+    margin-bottom: 35px;
+}
+
+.focus-screen header h1 {
+    font-size: 21px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+/* Back button */
+
+.back-to-dashboard {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #555555;
+    border: 1px solid #deded9;
+    padding: 11px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 45px;
+}
+
+.back-to-dashboard:hover {
+    background: #eaeae5;
+}
+
+/* Main content */
+
+.focus-content {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.focus-content h2 {
+    font-size: clamp(32px, 5vw, 38px);
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+}
+
+.focus-description {
+    color: ;
+    font-size: 10px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+
+.focus-description span{
+    color:#777770 ;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    
+}
+
+/* Task and duration selection */
+
+
+.focus-timer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.focus-timer-section label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444444;
+}
+
+.focus-timer-section select {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #deded9;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #292929;
+    font-size: 14px;
+    outline: none;
+}
+
+
+.focus-timer-section select:focus {
+    border-color: #888880;
+}
+
+/* Timer section */
+
+.focus-timer-section {
+    background: #ffffffff;
+    border: 1px solid #e9e9e4;
+    border-radius: 18px;
+    padding: 28px;
+    margin-top: 32px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.035);
+}
+
+/* Countdown display */
+
+.focus-timer {
+    text-align: center;
+    font-size: clamp(55px, 12vw, 76px);
+    font-weight: 600;
+    letter-spacing: -3px;
+    font-variant-numeric: tabular-nums;
+    color: #222222;
+    padding: 25px 0;
+}
+
+/* Timer controls */
+
+.focus-controls {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.focus-controls button {
+    flex: 1;
+    min-height: 48px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #deded9;
+    background: #f5f5f1;
+    color: #292929;
+}
+
+.focus-controls button:hover {
+    background: #eaeae5;
+}
+
+.focus-controls button:active,
+.back-to-dashboard:active {
+    transform: scale(0.98);
+}
+
+/* Start button */
+
+.start-focus {
+    background: #4812189d !important;
+    color: #ffffff !important;
+    border-color: transparent !important;    
+}
+
+.start-focus:hover {
+    background: #3b3b3b !important;
+}
+
+/* Mobile adjustments */
+
+.end-study{
+            border: none;
+            background: #000000af;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+}
+@media (max-width: 600px) {
+    body {
+        padding: 24px 17px;
+    }
+
+    .focus-screen header {
+        margin-bottom: 28px;
+    }
+
+    .back-to-dashboard {
+        margin-bottom: 35px;
+    }
+
+    .focus-description {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .focus-timer-section {
+        padding: 22px 17px;
+        border-radius: 14px;
+    }
+
+    .focus-timer {
+        padding: 22px 0;
+        letter-spacing: -2px;
+    }
+
+    .focus-controls {
+        gap: 8px;
+    }
+
+    .focus-controls button {
+        min-height: 46px;
+        font-size: 13px;
+    }
+}
+</style>
+<body>
+    <main class="focus-screen">
+
+    <header>
+        <h1>STUDYFLOW</h1>
+    </header>
+
+    <button class="back-to-dashboard">
+        ← Back to Dashboard
+    </button>
+
+    <section class="focus-content">
+
+        <h2>Focus Mode</h2>
+
+        <p class="focus-description">
+            Give it your attention. <br><br> <span>Start Studying</span>
+        </p>
+
+
+        <div class="focus-timer-section">
+
+            <label for="focus-duration">Study duration</label>
+
+            <select id="focus-duration">
+                <option value="900">15 minutes</option>
+                <option value="1500" >25 minutes</option>
+                <option value="1800">30 minutes</option>
+                <option value="3600">1 hour</option>
+            </select>
+
+            <div class="focus-timer">25:00</div>
+
+            <div class="focus-controls">
+
+                <button class="start-focus">Start</button>
+
+                <button class="pause-focus">Pause</button>
+
+                <button class="reset-focus">Reset</button>
+
+            </div>
+<button class="end-study">End Study</button>
+        </div>
+
+                    
+    </section>
+</main>
+
+<script>
+    const backToDashboard = document.querySelector(".back-to-dashboard");
+    
+    const focusTimer = document.querySelector(".focus-timer");
+    
+    const startFocus = document.querySelector(".start-focus");
+    
+    const focusDuration = document.querySelector("#focus-duration");
+    
+    const urlParameters = new URLSearchParams(window.location.search);
+
+const selectedTask = urlParameters.get("task");
+
+    <!-- console.log(selectedTask); -->
+    
+    const pauseFocus = document.querySelector(".pause-focus");
+    
+    const resetFocus = document.querySelector(".reset-focus");
+
+<!-- Linking dashboard to focus -->
+backToDashboard.addEventListener("click", function() {
+    window.location.href = "index.html";
+});
+
+
+let remainingTime = Number(focusDuration.value);
+let startingTime = remainingTime;
+let timerInterval = null;
+let hasStarted = false;
+let elapsedTime = 0;
+
+<!-- Timer calculation -->
+function updateTimerDisplay() {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    focusTimer.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+updateTimerDisplay();
+
+<!-- adding life to start btn -->
+startFocus.addEventListener("click", function() {
+    if (timerInterval !== null) {
+        return;
+    }
+
+    if (!hasStarted) {
+        startingTime = Number(focusDuration.value);
+        remainingTime = startingTime;
+        hasStarted = true;
+        updateTimerDisplay();
+    }
+
+      <!--calculating how time move-->
+    timerInterval = setInterval(function() {
+        if (remainingTime > 0) {
+            remainingTime--;
+            elapsedTime++;
+            updateTimerDisplay();
+        } else {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            hasStarted = false;
+        }
+    }, 1000);
+});
+
+<!-- pause -->
+pauseFocus.addEventListener("click", function() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+});
+
+<!-- reset -->
+resetFocus.addEventListener("click", function() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+
+    remainingTime = startingTime;
+    elapsedTime = 0;
+    hasStarted = false;
+
+    updateTimerDisplay();
+});
+
+    focusDuration.addEventListener("change", function() {
+    if (!hasStarted && timerInterval === null) {
+        remainingTime = Number(focusDuration.value);
+        startingTime = remainingTime;
+        updateTimerDisplay();
+    }
+});
+
+</script>
+</body>
+</html>
