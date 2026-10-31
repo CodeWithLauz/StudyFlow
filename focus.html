@@ -37,15 +37,11 @@ select:focus-visible {
     outline-offset: 3px;
 }
 
-/* Main screen */
-
 .focus-screen {
     display: block;
     max-width: 850px;
     margin: 0 auto;
 }
-
-/* Header */
 
 .focus-screen header {
     padding-bottom: 22px;
@@ -58,8 +54,6 @@ select:focus-visible {
     letter-spacing: 2px;
     font-weight: 700;
 }
-
-/* Back button */
 
 .back-to-dashboard {
     display: inline-flex;
@@ -77,8 +71,6 @@ select:focus-visible {
 .back-to-dashboard:hover {
     background: #eaeae5;
 }
-
-/* Main content */
 
 .focus-content {
     max-width: 520px;
@@ -108,9 +100,6 @@ select:focus-visible {
     margin-bottom: 40px;
     
 }
-
-/* Task and duration selection */
-
 
 .focus-timer-section {
     display: flex;
@@ -143,7 +132,6 @@ select:focus-visible {
     border-color: #888880;
 }
 
-/* Timer section */
 
 .focus-timer-section {
     background: #ffffffff;
@@ -154,8 +142,6 @@ select:focus-visible {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.035);
 }
 
-/* Countdown display */
-
 .focus-timer {
     text-align: center;
     font-size: clamp(55px, 12vw, 76px);
@@ -165,8 +151,6 @@ select:focus-visible {
     color: #222222;
     padding: 25px 0;
 }
-
-/* Timer controls */
 
 .focus-controls {
     display: flex;
@@ -194,8 +178,6 @@ select:focus-visible {
     transform: scale(0.98);
 }
 
-/* Start button */
-
 .start-focus {
     background: #4812189d !important;
     color: #ffffff !important;
@@ -206,8 +188,6 @@ select:focus-visible {
     background: #3b3b3b !important;
 }
 
-/* Mobile adjustments */
-
 .end-study{
             border: none;
             background: #000000af;
@@ -217,6 +197,85 @@ select:focus-visible {
             cursor: pointer;
             font-size: 14px;
 }
+
+.session-overlay { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0, 0, 0, 0.45); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+            z-index: 1000; 
+} 
+.session-popup { 
+           background: #ffffff; 
+           width: 100%; 
+           max-width: 380px; 
+           padding: 30px 24px; 
+           border-radius: 16px; 
+           text-align: center; 
+           box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15); 
+} 
+
+.session-popup h2 { 
+           font-size: 24px; 
+           margin-bottom: 15px; 
+} 
+
+.recorded-task { 
+           font-size: 17px; 
+           font-weight: 600; 
+           margin-bottom: 25px; 
+           overflow-wrap: anywhere; 
+} 
+
+.session-details { 
+           background: #f5f5f1; 
+           border-radius: 10px; 
+           padding: 20px; 
+           margin-bottom: 25px; 
+} 
+
+.session-details p { 
+           color: #777777; 
+           font-size: 13px; 
+           margin-bottom: 8px; 
+} 
+
+.recorded-time { 
+           font-size: 25px; 
+} 
+
+.return-dashboard { 
+           width: 100%; 
+           background: #481218; 
+           color: #ffffff; 
+           border: none; 
+           padding: 13px; 
+           border-radius: 8px; 
+           font-size: 14px; 
+           font-weight: 600; 
+} 
+
+.return-timer {
+    width: 100%;
+    background: grey;
+    color: black;
+    border: 1px solid transparent;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.return-timer:hover {
+    background: #f5eeee;
+}
+
+
 @media (max-width: 600px) {
     body {
         padding: 24px 17px;
@@ -254,6 +313,8 @@ select:focus-visible {
         font-size: 13px;
     }
 }
+
+
 </style>
 <body>
     <main class="focus-screen">
@@ -299,6 +360,30 @@ select:focus-visible {
             </div>
 <button class="end-study">End Study</button>
         </div>
+        
+        <!-- Session recording popup --> 
+        <div class="session-overlay" style="display: none;"> 
+            
+       <div class="session-popup"> 
+           
+           <h2 class="session-title">Session Complete!</h2> 
+           <p class="recorded-task"></p> 
+           
+           <div class="session-details"> 
+           <p class="session-message">Study time</p> 
+      <h3 class="recorded-time">0 minutes</h3> 
+      
+      </div> 
+
+<button class="return-dashboard"> Return to Dashboard </button> 
+
+        <button class="return-timer" 
+style="display: none;">
+            Return to Timer
+        </button>
+        
+     </div> 
+     </div> 
 
                     
     </section>
@@ -316,13 +401,29 @@ select:focus-visible {
     const urlParameters = new URLSearchParams(window.location.search);
 
 const selectedTask = urlParameters.get("task");
-
-    <!-- console.log(selectedTask); -->
+    
+    const taskId = Number(urlParameters.get("id"));
     
     const pauseFocus = document.querySelector(".pause-focus");
     
     const resetFocus = document.querySelector(".reset-focus");
+    
+    const endStudy = document.querySelector(".end-study");
 
+    const sessionOverlay = document.querySelector(".session-overlay");
+
+    const recordedTask = document.querySelector(".recorded-task");
+
+    const recordedTime = document.querySelector(".recorded-time");
+
+    const returnDashboard = document.querySelector(".return-dashboard");
+    
+    const sessionTitle = document.querySelector(".session-title");
+
+    const sessionMessage = document.querySelector(".session-message");
+
+    const returnTimer = document.querySelector(".return-timer");
+    
 <!-- Linking dashboard to focus -->
 backToDashboard.addEventListener("click", function() {
     window.location.href = "index.html";
@@ -330,12 +431,18 @@ backToDashboard.addEventListener("click", function() {
 
 
 let remainingTime = Number(focusDuration.value);
+<!-- remaining time tracks where you are now-->
+
 let startingTime = remainingTime;
+<!-- Starting time remembers where you started -->
+
 let timerInterval = null;
+<!-- we haven't given timeInterval a value yet,but we use setInterval to do that -->
+
 let hasStarted = false;
 let elapsedTime = 0;
 
-<!-- Timer calculation -->
+<!-- Timer calculation and format aa : bb-->
 function updateTimerDisplay() {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
@@ -398,6 +505,107 @@ resetFocus.addEventListener("click", function() {
         startingTime = remainingTime;
         updateTimerDisplay();
     }
+});
+
+<!-- End study and display session tu -->
+
+        endStudy.addEventListener("click", function() {
+
+    <!-- Stop the timer -->
+    clearInterval(timerInterval);
+    timerInterval = null;
+    hasStarted = false;
+
+<!-- Check whether any study time was recorded-->
+    if (elapsedTime === 0) {
+
+        <!-- Display the warning -->
+        sessionTitle.textContent = "No Study Time Recorded";
+
+        recordedTask.textContent =
+            "You haven't studied yet.";
+
+        sessionMessage.textContent =
+            "Start your timer when you're ready to study.";
+
+        recordedTime.textContent = "0 seconds";
+
+        <!-- Hide the dashboard button -->
+        returnDashboard.style.display = "none";
+
+        <!-- Show the timer button -->
+        returnTimer.style.display = "block";
+
+    } else {
+
+       <!-- Display the session recording -->
+        sessionTitle.textContent = "Session Complete!";
+
+         const tasks = JSON.parse(
+    localStorage.getItem("studyFlowTasks")
+) || [];
+
+const task = tasks.find(function(item) {
+    return item.id === taskId;
+});
+
+if (task) {
+    task.completed = true;
+
+    localStorage.setItem(
+        "studyFlowTasks",
+        JSON.stringify(tasks)
+    );
+}
+
+        recordedTask.textContent =
+            selectedTask || "Study Session";
+
+        sessionMessage.textContent = "Study time";
+
+        const minutes = Math.floor(elapsedTime / 60);
+        const seconds = elapsedTime % 60;
+
+        if (minutes === 0) {
+
+            recordedTime.textContent =
+                seconds + (seconds === 1 ? " second" : " seconds");
+
+        } else if (seconds === 0) {
+
+            recordedTime.textContent =
+                minutes + (minutes === 1 ? " minute" : " minutes");
+
+        } else {
+
+            recordedTime.textContent =
+                minutes + " min " + seconds + " sec";
+
+        }
+
+         <!-- Show the dashboard button -->
+        returnDashboard.style.display = "block";
+
+         <!-- Hide the timer button -->
+        returnTimer.style.display = "none";
+
+    }
+
+       <!-- Display the popup -->
+    sessionOverlay.style.display = "flex";
+
+});
+
+     <!-- Return to dashboard -->
+
+returnDashboard.addEventListener("click", function() {
+
+    window.location.href = "index.html";
+
+});
+
+returnTimer.addEventListener("click", function() {
+    sessionOverlay.style.display = "none";
 });
 
 </script>
